@@ -15,6 +15,9 @@
         #flex-show {
             min-height: 300px;
         }
+        .listtemplate {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +40,9 @@
                         <button id="save" class="btn btn-primary w-100"><i class="bi bi-floppy2-fill"></i>&nbsp;บันทึก</button>
                     </div>
                     <div class="col">
+                        <button id="preview" class="btn btn-warning w-100"><i class="bi bi-eye-fill"></i>&nbsp;ดูตัวอย่าง</button>
+                    </div>
+                    <div class="col">
                         <button id="shared" class="btn btn-success w-100"><i class="bi bi-share-fill"></i>&nbsp;แชร์ไปห้องแชทอื่น</button>
                     </div>
                 </div>
@@ -52,10 +58,29 @@
             </div>
         </div>
 
-        <div id="flexlist" class="row justify-content-start mt-5">
-            <!-- Template for flex items will be inserted here dynamically -->
+        <h2 class="mt-5 mb-3">บันทึก Flex Templates</h2>
+        <div id="flexlist" class="row justify-content-start">
+            <!-- Template items will be inserted here dynamically -->
         </div>
     </div>
+
+    <!-- Template for flex list items -->
+    <template id="flex-template-item">
+        <div class="col-md-4 listtemplate mt-2">
+            <div class="btn-group d-flex">
+                <button type="button" class="btn btn-outline-info text-dark fw-bold btn-head col-12"></button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li class="m-1"><a class="btn btn-success shared-flex w-100">แชร์ไปห้องแชทอื่น</a></li>
+                    <li class="m-1"><a class="btn btn-secondary show-json w-100">ดู JSON</a></li>
+                    <li class="m-1"><a class="btn btn-warning share-link w-100">คัดลอกลิ้งค์แชร์</a></li>
+                    <li class="m-1"><a class="btn btn-danger delete-list w-100">ลบ</a></li>
+                </ul>
+            </div>
+        </div>
+    </template>
 
     <!-- Modal -->
     <div class="modal fade" id="previewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
@@ -81,14 +106,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/flex2html.min.js"></script>
     <script>
-        // Your JavaScript code here
         document.addEventListener('DOMContentLoaded', function() {
             const jsonTextarea = document.getElementById('json');
             const saveButton = document.getElementById('save');
+            const previewButton = document.getElementById('preview');
             const sharedButton = document.getElementById('shared');
             const flexShowDiv = document.getElementById('flex-show');
             const altTextInput = document.getElementById('altText');
             const textCount = document.getElementById('text-count');
+            const flexList = document.getElementById('flexlist');
+            const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
 
             // Example Flex JSON (you can replace this with your default or load it dynamically)
             const defaultFlexJson = {
@@ -111,7 +138,98 @@
                             "weight": "bold",
                             "size": "xl"
                         },
-                        // ... (rest of the Flex JSON structure)
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "margin": "md",
+                            "contents": [
+                                {
+                                    "type": "icon",
+                                    "size": "sm",
+                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                },
+                                {
+                                    "type": "icon",
+                                    "size": "sm",
+                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                },
+                                {
+                                    "type": "icon",
+                                    "size": "sm",
+                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                },
+                                {
+                                    "type": "icon",
+                                    "size": "sm",
+                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png"
+                                },
+                                {
+                                    "type": "icon",
+                                    "size": "sm",
+                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gray_star_28.png"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": "4.0",
+                                    "size": "sm",
+                                    "color": "#999999",
+                                    "margin": "md",
+                                    "flex": 0
+                                }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "margin": "lg",
+                            "spacing": "sm",
+                            "contents": [
+                                {
+                                    "type": "box",
+                                    "layout": "baseline",
+                                    "spacing": "sm",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "Place",
+                                            "color": "#aaaaaa",
+                                            "size": "sm",
+                                            "flex": 1
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
+                                            "wrap": true,
+                                            "color": "#666666",
+                                            "size": "sm",
+                                            "flex": 5
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "baseline",
+                                    "spacing": "sm",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "Time",
+                                            "color": "#aaaaaa",
+                                            "size": "sm",
+                                            "flex": 1
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "10:00 - 23:00",
+                                            "wrap": true,
+                                            "color": "#666666",
+                                            "size": "sm",
+                                            "flex": 5
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "footer": {
@@ -153,24 +271,26 @@
             renderFlex();
 
             // Function to render Flex
-            function renderFlex() {
+            function renderFlex(targetElement = 'flex-show') {
                 try {
                     const flexJson = JSON.parse(jsonTextarea.value);
-                    flexShowDiv.innerHTML = ''; // Clear previous content
-                    flex2html("flex-show", {
+                    const targetDiv = document.getElementById(targetElement);
+                    targetDiv.innerHTML = ''; // Clear previous content
+                    flex2html(targetElement, {
                         "type": "flex",
                         "altText": altTextInput.value || "Flex Message",
                         "contents": flexJson
                     });
                 } catch (error) {
                     console.error('Invalid JSON:', error);
-                    flexShowDiv.innerHTML = '<div class="text-danger">Invalid JSON</div>';
+                    document.getElementById(targetElement).innerHTML = '<div class="text-danger">Invalid JSON</div>';
                 }
             }
 
             // Event listeners
-            jsonTextarea.addEventListener('input', renderFlex);
+            jsonTextarea.addEventListener('input', () => renderFlex('flex-show'));
             saveButton.addEventListener('click', saveFlexTemplate);
+            previewButton.addEventListener('click', showPreview);
             sharedButton.addEventListener('click', shareFlexTemplate);
             altTextInput.addEventListener('input', updateAltTextCount);
 
@@ -180,19 +300,102 @@
             }
 
             function saveFlexTemplate() {
-                // Implement save functionality
-                console.log('Saving Flex template...');
+                const template = {
+                    id: Date.now(),
+                    name: `Template ${flexList.children.length + 1}`,
+                    json: jsonTextarea.value,
+                    altText: altTextInput.value
+                };
+                addTemplateToList(template);
+                // Here you would typically also save to a database or localStorage
             }
 
-            function shareFlexTemplate() {
-                // Implement share functionality
-                console.log('Sharing Flex template...');
-            }
+        function addTemplateToList(template) {
+            const templateItem = document.importNode(document.getElementById('flex-template-item').content, true);
+            templateItem.querySelector('.btn-head').textContent = template.name;
+            templateItem.querySelector('.shared-flex').addEventListener('click', () => shareFlexTemplate(template));
+            templateItem.querySelector('.show-json').addEventListener('click', () => showJsonInEditor(template));
+            templateItem.querySelector('.share-link').addEventListener('click', () => copyShareLink(template));
+            templateItem.querySelector('.delete-list').addEventListener('click', () => deleteTemplate(template.id));
+            
+            const listItem = document.createElement('div');
+            listItem.classList.add('col-md-4', 'listtemplate', 'mt-2');
+            listItem.dataset.templateId = template.id;
+            listItem.appendChild(templateItem);
+            flexList.appendChild(listItem);
+        }
 
-            // Initialize
+        function showPreview() {
+            renderFlex('flex1');
+            previewModal.show();
+        }
+
+        function shareFlexTemplate(template = null) {
+            const flexToShare = template ? template : {
+                json: jsonTextarea.value,
+                altText: altTextInput.value
+            };
+            // Here you would implement the sharing functionality
+            console.log('Sharing Flex template:', flexToShare);
+            alert('Sharing functionality to be implemented');
+        }
+
+        function showJsonInEditor(template) {
+            jsonTextarea.value = template.json;
+            altTextInput.value = template.altText;
+            renderFlex('flex-show');
             updateAltTextCount();
-            renderFlex();
+        }
+
+        function copyShareLink(template) {
+            // Here you would generate a shareable link
+            const shareableLink = `https://your-domain.com/share?template=${template.id}`;
+            navigator.clipboard.writeText(shareableLink).then(() => {
+                alert('Shareable link copied to clipboard!');
+            });
+        }
+
+        function deleteTemplate(templateId) {
+            const templateElement = flexList.querySelector(`[data-template-id="${templateId}"]`);
+            if (templateElement) {
+                templateElement.remove();
+                // Here you would also remove the template from your storage (e.g., database or localStorage)
+            }
+        }
+
+        // Copy JSON button in modal
+        document.getElementById('json-copy').addEventListener('click', function() {
+            navigator.clipboard.writeText(jsonTextarea.value).then(() => {
+                alert('JSON copied to clipboard!');
+            });
         });
-    </script>
+
+        // Update JSON button in modal
+        document.getElementById('json-update').addEventListener('click', function() {
+            const updateId = document.getElementById('update-id').textContent;
+            if (updateId) {
+                // Here you would update the stored template
+                console.log('Updating template:', updateId);
+                // Update the list item
+                const listItem = flexList.querySelector(`[data-template-id="${updateId}"]`);
+                if (listItem) {
+                    listItem.querySelector('.btn-head').textContent = `Updated Template ${updateId}`;
+                }
+            }
+            previewModal.hide();
+        });
+
+        // Load saved templates (example)
+        const savedTemplates = [
+            { id: 1, name: 'Template 1', json: JSON.stringify(defaultFlexJson), altText: 'Example Template 1' },
+            { id: 2, name: 'Template 2', json: JSON.stringify(defaultFlexJson), altText: 'Example Template 2' }
+        ];
+        savedTemplates.forEach(addTemplateToList);
+
+        // Initialize
+        updateAltTextCount();
+        renderFlex();
+    });
+</script>
 </body>
 </html>
