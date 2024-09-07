@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ai V8 เครื่องมืออัจฉริยะ</title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <title>Advanced Class Management System</title>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="./flexhtml.js"></script>
+<script src="./flexhtml.js"></script>
     <link rel="stylesheet" href="./flexhtml.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap');
@@ -15,10 +13,10 @@
         :root {
             --primary-color: #00c8ff;
             --secondary-color: #0080ff;
-            --bg-color: #FFFFFF;
-            --text-color: #000000;
-            --container-bg: #WHITE;
-            --input-bg: #FFFFFF;
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --container-bg: #1e293b;
+            --input-bg: #334155;
             --border-color: #475569;
         }
 
@@ -37,7 +35,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image:
+            background-image: 
                 radial-gradient(circle at 10% 20%, rgba(0, 200, 255, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(0, 128, 255, 0.1) 0%, transparent 20%);
             background-attachment: fixed;
@@ -49,22 +47,23 @@
             padding: 2.5rem;
             background-color: var(--container-bg);
             border-radius: 20px;
-            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         h2 {
             text-align: center;
+            margin-bottom: 1.5rem;
             color: var(--primary-color);
-            text-shadow: 0 0 2px rgba(0, 200, 255, 0.5);
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
             font-size: 2rem;
         }
 
         .lead {
             text-align: center;
             margin-bottom: 2rem;
-            color: BLACK;
+            color: #94a3b8;
             font-weight: 300;
             font-size: 1.1rem;
         }
@@ -174,39 +173,36 @@
             }
         }
     </style>
-   
 </head>
-
 <body>
     <div class="container">
         <div class="user-info">
-            <img id="pictureUrl" alt="User Profile" width="80" height="80">
+            <img id="pictureUrl" alt="User Profile" width="80" height="80"> 
             <p id="displayName"></p>
         </div>
 
-        <h2>Ai V8</h2>
-        <h2>เครื่องมืออัจฉริยะ</h2>
-        <p class="lead">เลือกกลุ่มและข้อความที่ต้องการส่งได้เลยครับ</p>
-
+        <h2>Advanced Class Management System</h2>
+        <p class="lead">เลือกกลุ่มและข้อความที่ต้องการได้เลยครับ</p>
+        
         <div class="form-group">
             <label for="groupSelect">เลือกหัวข้อกลุ่มที่ต้องการ:</label>
             <select class="form-control" id="groupSelect">
                 <option value="-1" selected>-- เลือกกลุ่ม --</option>
-                <!-- <option value="1">ONLINE</option>
+                <option value="1">ONLINE</option>
                 <option value="2">TTS(จับมือทำ)</option>
                 <option value="3">ข้อมูลเพิ่มเติมอื่นๆ</option>
-                <option value="4">ข้อมูลสินค้า</option> -->
+                <option value="4">ข้อมูลพี่เลี้ยง</option>
             </select>
         </div>
-
+        
         <div class="form-group">
             <label for="flexSelect">เลือกข้อความที่จะส่ง:</label>
             <select class="form-control" id="flexSelect" disabled>
                 <option value="-1" selected>-- เลือกข้อความ --</option>
             </select>
         </div>
-
-        <div id="previewContainer" style="display: none;"
+        
+     <div id="previewContainer" style="display: none;"
             <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Flex Message Preview:</h3>
             <!-- <div id="bubblePreview">
                 <div id="bubbleContent"></div>
@@ -218,15 +214,15 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="button-container">
-            <button id="shareBtn" class="btn btn-primary" disabled>ส่งข้อความ</button>
+            <button id="shareBtn" class="btn btn-primary" disabled>Share Message</button>
         </div>
     </div>
 
     <script>
-        const LIFF_ID = "2006070736-MX8WE12P"; // แทนที่ด้วย LIFF ID ของคุณ
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmCAAs6KXOYye3qexpgobroYdgpdhBbypWHkCwlGnlx8auzQAmhATZEXQ5ABQyn5M/exec"; // แทนที่ด้วย URL ของ Apps Script ที่เผยแพร่
+    const LIFF_ID = "2005615503-Gxyb3Yw9"; // แทนที่ด้วย LIFF ID ของคุณ
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRVB2GDss-Zo9jaRZfSR0o8AeniyG9jv9EnJ95pXgKzsNEd0zQQlmnj4qj-WmPaPvSIg/exec"; // แทนที่ด้วย URL ของ Apps Script ที่เผยแพร่
 
         let flexMessages = {};
 
@@ -294,9 +290,7 @@
                 });
         }
 
-
-
-        function updatePreview() {
+       function updatePreview() {
             const selectedGroup = document.getElementById('groupSelect').value;
             const selectedIndex = document.getElementById('flexSelect').value;
             const previewContainer = document.getElementById('previewContainer');
@@ -332,7 +326,7 @@
             }
         }
 
-        function createBubbleHTML(contents) {
+    function createBubbleHTML(contents) {
             let html = '';
             if (contents.type === 'bubble') {
                 const header = contents.header || {};
@@ -367,7 +361,7 @@
             return html;
         }
 
-        document.getElementById('shareBtn').addEventListener('click', () => {
+     document.getElementById('shareBtn').addEventListener('click', () => {
             const selectedGroup = document.getElementById('groupSelect').value;
             const selectedIndex = document.getElementById('flexSelect').value;
             if (flexMessages[selectedGroup]) {
@@ -391,8 +385,7 @@
                 }
             }
         });
-    </script>
+</script>
 
 </body>
-
 </html>
