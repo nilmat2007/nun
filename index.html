@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Class Management System</title>
+    <title>Ai V8 เครื่องมืออัจฉริยะ</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="./flexhtml.js"></script>
     <link rel="stylesheet" href="./flexhtml.css">
@@ -13,10 +15,10 @@
         :root {
             --primary-color: #00c8ff;
             --secondary-color: #0080ff;
-            --bg-color: #0f172a;
-            --text-color: #e2e8f0;
-            --container-bg: #1e293b;
-            --input-bg: #334155;
+            --bg-color: #FFFFFF;
+            --text-color: #000000;
+            --container-bg: #WHITE;
+            --input-bg: #FFFFFF;
             --border-color: #475569;
         }
 
@@ -35,7 +37,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(0, 200, 255, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(0, 128, 255, 0.1) 0%, transparent 20%);
             background-attachment: fixed;
@@ -47,23 +49,22 @@
             padding: 2.5rem;
             background-color: var(--container-bg);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 1.5rem;
             color: var(--primary-color);
-            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+            text-shadow: 0 0 2px rgba(0, 200, 255, 0.5);
             font-size: 2rem;
         }
 
         .lead {
             text-align: center;
             margin-bottom: 2rem;
-            color: #94a3b8;
+            color: BLACK;
             font-weight: 300;
             font-size: 1.1rem;
         }
@@ -131,7 +132,7 @@
             text-align: center;
         }
 
-        #flex1 {
+        #bubblePreview {
             max-width: 100%;
             border-radius: 15px;
             overflow: hidden;
@@ -139,6 +140,11 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #bubbleContent {
+            padding: 1.5rem;
+            color: var(--text-color);
         }
 
         .user-info {
@@ -168,138 +174,225 @@
             }
         }
     </style>
+   
 </head>
+
 <body>
     <div class="container">
         <div class="user-info">
-            <img id="pictureUrl" alt="User Profile" width="80" height="80"> 
+            <img id="pictureUrl" alt="User Profile" width="80" height="80">
             <p id="displayName"></p>
         </div>
 
-        <h2>Advanced Class Management System</h2>
-        <p class="lead">เลือกกลุ่มและข้อความที่ต้องการได้เลยครับ</p>
-        
+        <h2>Ai V8</h2>
+        <h2>เครื่องมืออัจฉริยะ</h2>
+        <p class="lead">เลือกกลุ่มและข้อความที่ต้องการส่งได้เลยครับ</p>
+
         <div class="form-group">
             <label for="groupSelect">เลือกหัวข้อกลุ่มที่ต้องการ:</label>
             <select class="form-control" id="groupSelect">
                 <option value="-1" selected>-- เลือกกลุ่ม --</option>
-                <option value="1">ONLINE</option>
+                <!-- <option value="1">ONLINE</option>
                 <option value="2">TTS(จับมือทำ)</option>
                 <option value="3">ข้อมูลเพิ่มเติมอื่นๆ</option>
-                <option value="4">ข้อมูลพี่เลี้ยง</option>
+                <option value="4">ข้อมูลสินค้า</option> -->
             </select>
         </div>
-        
+
         <div class="form-group">
             <label for="flexSelect">เลือกข้อความที่จะส่ง:</label>
             <select class="form-control" id="flexSelect" disabled>
                 <option value="-1" selected>-- เลือกข้อความ --</option>
             </select>
         </div>
-        
-        <div id="previewContainer" style="display: none;">
+
+        <div id="previewContainer" style="display: none;"
             <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Flex Message Preview:</h3>
-            <div id="flex1"></div>
+            <!-- <div id="bubblePreview">
+                <div id="bubbleContent"></div>
+            </div> -->
+            <div style="overflow: auto; background-color: #849ebf; border: 1px solid #ccc; border-radius: 10px; padding: 10px; margin-bottom: 1rem;">
+                <div class="reset-this">
+                    <div id="flex-show" style="padding-top: 10px;">
+                    </div>
+                </div>
+            </div>
         </div>
-        
+
         <div class="button-container">
-            <button id="shareBtn" class="btn btn-primary" disabled>Share Message</button>
+            <button id="shareBtn" class="btn btn-primary" disabled>ส่งข้อความ</button>
         </div>
     </div>
 
     <script>
-    const LIFF_ID = "2005615503-Gxyb3Yw9"; 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRVB2GDss-Zo9jaRZfSR0o8AeniyG9jv9EnJ95pXgKzsNEd0zQQlmnj4qj-WmPaPvSIg/exec";
-    
-    let flexMessages = {};
+        const LIFF_ID = "2006070736-MX8WE12P"; // แทนที่ด้วย LIFF ID ของคุณ
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmCAAs6KXOYye3qexpgobroYdgpdhBbypWHkCwlGnlx8auzQAmhATZEXQ5ABQyn5M/exec"; // แทนที่ด้วย URL ของ Apps Script ที่เผยแพร่
 
-    liff.init({ liffId: LIFF_ID })
-        .then(() => {
-            console.log("LIFF Initialized");
-            if (liff.isLoggedIn()) {
-                runApp();
-            } else {
-                liff.login();
-            }
-        })
-        .catch((err) => {
-            console.log("LIFF Initialization failed:", err);
-        });
+        let flexMessages = {};
 
-    function runApp() {
-        liff.getProfile().then(profile => {
-            document.getElementById("pictureUrl").src = profile.pictureUrl;
-            document.getElementById("displayName").innerHTML = '<b>ยินดีต้อนรับคุณ:</b> ' + profile.displayName;
-        }).catch(err => console.error(err));
-
-        fetchFlexMessages();
-    }
-
-    function fetchFlexMessages() {
-        fetch(APPS_SCRIPT_URL)
-            .then(response => response.json())
-            .then(data => {
-                flexMessages = data;
-                document.getElementById('groupSelect').disabled = false;
-                document.getElementById('groupSelect').dispatchEvent(new Event('change'));
+        // Initialize LIFF
+        liff.init({ liffId: LIFF_ID })
+            .then(() => {
+                console.log("LIFF Initialized");
+                if (liff.isLoggedIn()) {
+                    runApp();
+                } else {
+                    liff.login();
+                }
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('ไม่สามารถโหลดข้อมูล Flex Messages ได้');
+            .catch((err) => {
+                console.log("LIFF Initialization failed:", err);
             });
-    }
+       function runApp() {
+            $.get(APPS_SCRIPT_URL + "?opt=groups", function (data) {
+                console.log("🚀 !! data:", data)
+                data.groups.forEach((group, index) => {
+                    $('#groupSelect').append(`<option value="${group.name}">${group.name}</option>`);
+                });
+                $('#groupSelect').on('change', () => {
+                    const selectedGroup = $('#groupSelect').val();
+                    const flexSelect = $('#flexSelect');
+                    flexSelect.html('<option value="-1" selected>-- เลือกข้อความ --</option>');
+                    $('#previewContainer').hide();
+                    $('#flex-show').html('');
+                    if (flexMessages[selectedGroup]) {
+                        const groupMessages = flexMessages[selectedGroup] || [];
+                        groupMessages.forEach((flexMessage, index) => {
+                            flexSelect.append('<option value="' + index + '">' + flexMessage.altText + '</option>');
+                        });
+                        flexSelect.prop('disabled', false);
+                    } else {
+                       
+                        flexSelect.prop('disabled', true);
+                        $('#previewContainer').hide();
+                    }
+                });
 
-    document.getElementById("groupSelect").addEventListener("change", function() {
-        const groupValue = this.value;
-        const flexSelect = document.getElementById("flexSelect");
-        flexSelect.innerHTML = '<option value="-1" selected>-- เลือกข้อความ --</option>';
-
-        if (groupValue == -1) {
-            flexSelect.disabled = true;
-        } else {
-            flexSelect.disabled = false;
-            flexMessages[groupValue].forEach((flex, index) => {
-                const option = document.createElement("option");
-                option.value = index;
-                option.text = flex.title;
-                flexSelect.add(option);
+                $('#flexSelect').on('change', updatePreview);
             });
+            liff.getProfile().then(profile => {
+                document.getElementById("pictureUrl").src = profile.pictureUrl;
+                document.getElementById("displayName").innerHTML = '<b>ยินดีต้อนรับคุณ:</b> ' + profile.displayName;
+            }).catch(err => console.error(err));
+
+            fetchFlexMessages(); // Load Flex Messages after LIFF is initialized
         }
 
-        document.getElementById("previewContainer").style.display = 'none';
-        document.getElementById("shareBtn").disabled = true;
-    });
-
-    document.getElementById("flexSelect").addEventListener("change", function() {
-        const flexValue = this.value;
-        const groupValue = document.getElementById("groupSelect").value;
-
-        if (flexValue == -1) {
-            document.getElementById("previewContainer").style.display = 'none';
-            document.getElementById("shareBtn").disabled = true;
-        } else {
-            const flex = flexMessages[groupValue][flexValue].flexMessage;
-            const container = document.getElementById('flex1');
-            container.innerHTML = flex2html.toHtml(flex);
-            document.getElementById("previewContainer").style.display = 'block';
-            document.getElementById("shareBtn").disabled = false;
+        function fetchFlexMessages() {
+            fetch(APPS_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("🚀 !! data:", data)
+                    flexMessages = data;
+                    console.log("Fetched Flex Messages:", flexMessages);
+                    document.getElementById('groupSelect').disabled = false;
+                    document.getElementById('groupSelect').dispatchEvent(new Event('change'));
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('ไม่สามารถโหลดข้อมูล Flex Messages ได้');
+                });
         }
-    });
 
-    document.getElementById("shareBtn").addEventListener("click", function() {
-        const flexValue = document.getElementById("flexSelect").value;
-        const groupValue = document.getElementById("groupSelect").value;
 
-        const selectedFlex = flexMessages[groupValue][flexValue].flexMessage;
-        
-        liff.shareTargetPicker([{
-            type: "flex",
-            altText: "Flex Message",
-            contents: selectedFlex
-        }]).catch((err) => {
-            console.error('Error sharing Flex Message:', err);
+
+        function updatePreview() {
+            const selectedGroup = document.getElementById('groupSelect').value;
+            const selectedIndex = document.getElementById('flexSelect').value;
+            const previewContainer = document.getElementById('previewContainer');
+            const bubbleContent = document.getElementById('bubbleContent');
+            const shareBtn = document.getElementById('shareBtn');
+
+            if (flexMessages[selectedGroup]) {
+                const groupMessages = flexMessages[selectedGroup] || [];
+                const flexMessage = groupMessages[selectedIndex];
+                if (flexMessage && flexMessage.contents) {
+                    previewContainer.style.display = 'block';
+                    $('#flex-show').html('');
+                    flex2html('flex-show', {
+                        type: 'flex',
+                        altText: 'aaaaa',
+                        contents: flexMessage.contents
+                    })
+                    if(flexMessage.contents.type === 'bubble'){
+                        $('.LySlider .lyInner').css('justify-content', 'center');
+                    }else{
+                        $('.LySlider .lyInner').css('justify-content', '');
+                    }
+                    shareBtn.disabled = false;
+                } else {
+                    $('#flex-show').html('');
+                    previewContainer.style.display = 'none';
+                    shareBtn.disabled = true;
+                }
+            } else {
+                $('#flex-show').html('');
+                previewContainer.style.display = 'none';
+                shareBtn.disabled = true;
+            }
+        }
+
+        function createBubbleHTML(contents) {
+            let html = '';
+            if (contents.type === 'bubble') {
+                const header = contents.header || {};
+                const hero = contents.hero || {};
+                const body = contents.body || {};
+                const footer = contents.footer || {};
+
+                html += `<div style="background-color: ${header.backgroundColor || '#ffffff'}; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">`;
+
+                if (hero.url) {
+                    html += `<img src="${hero.url}" style="width: 100%; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">`;
+                }
+
+                if (header.contents && header.contents.length > 0) {
+                    html += `<h2 style="color: ${header.contents[0].color || '#000000'};">${header.contents[0].text}</h2>`;
+                }
+
+                if (body.contents) {
+                    body.contents.forEach(item => {
+                        html += `<p style="color: ${item.color || '#000000'};">${item.text}</p>`;
+                    });
+                }
+
+                if (footer.contents && footer.contents.length > 0) {
+                    footer.contents.forEach(item => {
+                        html += `<button style="color: ${item.color || '#000000'}; background-color: ${item.style || '#00ffff'};">${item.text}</button>`;
+                    });
+                }
+
+                html += `</div>`;
+            }
+            return html;
+        }
+
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            const selectedGroup = document.getElementById('groupSelect').value;
+            const selectedIndex = document.getElementById('flexSelect').value;
+            if (flexMessages[selectedGroup]) {
+                const groupMessages = flexMessages[selectedGroup] || [];
+                const flexMessage = groupMessages[selectedIndex];
+                if (flexMessage && flexMessage.contents) {
+                    liff.shareTargetPicker([{
+                        type: 'flex',
+                        altText: flexMessage.altText,
+                        contents: flexMessage.contents
+                    }])
+                        .then(() => {
+                            console.log("Message shared");
+                        })
+                        .catch(error => {
+                            console.error("Error sharing message:", error);
+                            alert('ไม่สามารถแชร์ข้อความได้');
+                        });
+                } else {
+                    alert('ข้อความที่เลือกไม่ถูกต้อง');
+                }
+            }
         });
-    });
     </script>
+
 </body>
+
 </html>
