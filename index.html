@@ -294,17 +294,15 @@
   <script>
     var Toast
     $(document).ready(() => {
-      // $.LoadingOverlay("show");
       Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
         timer: 1500,
         timerProgressBar: true,
-      })
-      main()
-      // flex2html('testflex', JSON.parse(testflex))
-    })
+      });
+      main();
+    });
     function copy(id = 'json-code') {
       let $temp = $('<input>')
       $('body').append($temp)
@@ -339,17 +337,34 @@
     var scripturl = 'https://script.google.com/macros/s/AKfycbzDrVrPPTbKHKTySkUHxwc2DclT8-tZvzRi8abRYyhDgT98YQTlpE9DsZ3jtNeg1xIO/exec'
     var starttime = new Date().getTime()
     async function main() {
-      liff.init({
-        liffId: '2005615503-JXQ1zqO3', withLoginOnExternalBrowser: true
-      });
+      await liff.init({ liffId: '2005615503-Gxyb3Yw9', withLoginOnExternalBrowser: true });
 
-      liff.ready.then(async () => {
-        // if loader show less than 3 sec then wait 3 sec
-        let endtime = new Date().getTime()
-        let waittime = 3000 - (endtime - starttime)
-        if (waittime > 0) {
-          await new Promise(resolve => setTimeout(resolve, waittime))
+      if (liff.isLoggedIn()) {
+        $('#loader').hide();
+        $('#login-sec').removeClass('d-flex').hide();
+        $('#input-sec').slideDown(200);
+
+        let context = await liff.getContext();
+        if (context.type == 'square_chat') {
+          profile = { displayName: 'openchat', userId: context.squareMemberId, isSquare: true };
+        } else {
+          profile = await liff.getProfile();
         }
+
+        $('#displayName').text(profile.displayName);
+        $('#display-img').attr('src', profile.pictureUrl);
+
+        if (liff.isInClient() || context.type === 'square_chat') {
+          $('#send').slideDown(200);
+        }
+
+        getFlex();
+      } else {
+        $('#loader').hide();
+        $('#login-sec').addClass('d-flex').show().find('div').slideDown(200);
+        $('#login-btn').click(() => liff.login({ redirectUri: window.location.href }));
+      }
+    }
 
         console.log('liff ready')
         if (liff.isLoggedIn()) {
