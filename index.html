@@ -6,21 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>ระบบบันทึกและแชร์ Flex Message</title>
 
-  <!-- CSS Libraries -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-  
-  <!-- SweetAlert2 -->
+   
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
-  <!-- jQuery (สำคัญมาก ต้องโหลดก่อน flexhtml.js) -->
+   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <!-- LIFF SDK -->
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
-  <!-- Custom Library (ของคุณ) -->
   <script src="flexhtml.js"></script>
   <link rel="stylesheet" href="flexhtml.css">
 
@@ -36,117 +31,74 @@
       overflow-x: hidden;
     }
 
-    .hide {
-      display: none !important;
-    }
+    .hide { display: none !important; }
 
     /* Loader */
     #loader-sec {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: white;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: white; z-index: 9999;
+      display: flex; justify-content: center; align-items: center; flex-direction: column;
     }
 
     .spinner-custom {
-      width: 3rem;
-      height: 3rem;
+      width: 3rem; height: 3rem;
       border: 5px solid #f3f3f3;
       border-top: 5px solid var(--primary-color);
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
     /* Login Section */
-    #login-sec {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn-line {
-      background-color: #06c755;
-      color: white;
-      font-weight: 600;
-    }
-    .btn-line:hover {
-      background-color: #05b34c;
-      color: white;
-    }
+    #login-sec { height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .btn-line { background-color: #06c755; color: white; font-weight: 600; }
+    .btn-line:hover { background-color: #05b34c; color: white; }
 
     /* Main App */
     .preview-box {
       background-color: #849ebf;
       background-image: url('https://cdn.pixabay.com/photo/2016/06/02/02/33/triangles-1430105_1280.png'); 
       background-size: cover;
-      min-height: 400px;
-      max-height: 600px;
-      overflow-y: auto;
-      border-radius: 10px;
-      padding: 15px;
+      min-height: 400px; max-height: 600px; overflow-y: auto;
+      border-radius: 10px; padding: 15px;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
     }
     
-    /* Reset CSS for FlexHTML */
-    .reset-this {
-        all: initial;
-        font-family: 'Kanit', sans-serif; 
-    }
-    .reset-this * {
-        box-sizing: border-box;
-    }
+    .reset-this { all: initial; font-family: 'Kanit', sans-serif; }
+    .reset-this * { box-sizing: border-box; }
 
     .flex-card {
       transition: transform 0.2s;
       border-left: 5px solid var(--primary-color);
-      /* เพิ่ม position relative เพื่อให้เป็นจุดอ้างอิง */
       position: relative;
     }
     
-    .flex-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-    }
+    .flex-card:hover { transform: translateY(-2px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; }
+    .high-z-index { z-index: 1050 !important; position: relative; transform: none !important; }
 
-    /* --- FIX: Class สำหรับยกเลเยอร์เมื่อเมนูเปิด --- */
-    .high-z-index {
-      z-index: 1050 !important;
-      position: relative;
-      /* ต้องปิด transform ชั่วคราวเพื่อให้ z-index ทำงานได้เต็มที่ในบาง browser */
-      transform: none !important; 
-    }
+    .avatar-img { width: 50px; height: 50px; object-fit: cover; border: 2px solid var(--primary-color); }
 
-    .avatar-img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border: 2px solid var(--primary-color);
+    /* Pagination Styles */
+    .pagination .page-link {
+        border: none; color: #6c757d; margin: 0 3px;
+        border-radius: 50% !important; width: 36px; height: 36px;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 500; transition: all 0.2s;
     }
+    .pagination .page-link:hover { background-color: #e9ecef; color: var(--primary-color); transform: translateY(-2px); }
+    .pagination .page-item.active .page-link { background-color: var(--primary-color); color: white; box-shadow: 0 2px 5px rgba(6, 199, 85, 0.4); }
+    .pagination .page-item.disabled .page-link { opacity: 0.5; background-color: transparent; }
   </style>
 </head>
 
 <body>
 
-  <!-- Loading Screen -->
   <section id="loader-sec">
     <div class="spinner-custom mb-3"></div>
     <div class="fw-bold text-muted">กำลังโหลดข้อมูล...</div>
   </section>
 
-  <!-- Login Screen -->
   <section id="login-sec" class="hide">
     <div class="text-center p-5 bg-white rounded shadow-sm">
       <h3 class="fw-bold mb-4">Flex Message Creator</h3>
@@ -157,10 +109,8 @@
     </div>
   </section>
 
-  <!-- Main App -->
   <section id="input-sec" class="container py-4 hide">
     
-    <!-- Header -->
     <div class="d-flex align-items-center justify-content-between mb-4">
       <div>
         <h4 class="fw-bold mb-0">สวัสดี, <span id="displayName" class="text-primary">User</span></h4>
@@ -169,7 +119,6 @@
       <img id="display-img" class="rounded-circle avatar-img shadow-sm" src="" alt="Profile">
     </div>
 
-    <!-- Inputs -->
     <div class="row g-4">
       <div class="col-lg-7">
         <div class="card shadow-sm border-0 h-100">
@@ -194,19 +143,13 @@
 
             <div class="row g-2">
               <div class="col-6">
-                <button id="save-btn" class="btn btn-primary w-100">
-                  <i class="bi bi-save me-1"></i> บันทึก
-                </button>
+                <button id="save-btn" class="btn btn-primary w-100"><i class="bi bi-save me-1"></i> บันทึก</button>
               </div>
               <div class="col-6">
-                <button id="share-btn" class="btn btn-success w-100">
-                  <i class="bi bi-share-fill me-1"></i> แชร์เลย
-                </button>
+                <button id="share-btn" class="btn btn-success w-100"><i class="bi bi-share-fill me-1"></i> แชร์เลย</button>
               </div>
               <div class="col-12 mt-2">
-                 <button id="send-chat-btn" class="btn btn-warning w-100 text-dark hide">
-                  <i class="bi bi-send-fill me-1"></i> ส่งในห้องแชทนี้
-                </button>
+                 <button id="send-chat-btn" class="btn btn-warning w-100 text-dark hide"><i class="bi bi-send-fill me-1"></i> ส่งในห้องแชทนี้</button>
               </div>
             </div>
 
@@ -214,14 +157,10 @@
         </div>
       </div>
 
-      <!-- Preview -->
       <div class="col-lg-5">
         <div class="card shadow-sm border-0 h-100">
-          <div class="card-header bg-white fw-bold">
-            <i class="bi bi-eye"></i> Live Preview
-          </div>
+          <div class="card-header bg-white fw-bold"><i class="bi bi-eye"></i> Live Preview</div>
           <div class="preview-box">
-             <!-- Container for FlexHTML -->
              <div class="reset-this">
                 <div id="flex-show" style="width: 100%; padding: 10px;">
                     <div class="text-white text-center mt-5 opacity-50">
@@ -235,7 +174,6 @@
       </div>
     </div>
 
-    <!-- Saved List -->
     <div class="mt-5">
       <div class="d-flex justify-content-between align-items-end mb-3">
         <h5 class="fw-bold mb-0 border-start border-4 border-primary ps-2"> รายการที่บันทึกไว้</h5>
@@ -254,14 +192,13 @@
           </div>
         </div>
       </div>
+
       <div id="flexlist" class="row g-3">
-        <!-- Template Item (Hidden) -->
         <div class="col-md-6 col-lg-4 template-item hide">
           <div class="card flex-card shadow-sm h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div class="text-truncate me-2 w-100 fw-bold item-name">Template Name</div>
               <div class="dropdown">
-                <!-- เพิ่ม ID หรือ Class เพื่อใช้อ้างอิงได้ง่ายขึ้นถ้าจำเป็น แต่ใช้โครงสร้างเดิมได้ -->
                 <button class="btn btn-light btn-sm rounded-circle" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="bi bi-three-dots-vertical"></i>
                 </button>
@@ -276,45 +213,49 @@
             </div>
           </div>
         </div>
-        <!-- End Template -->
       </div>
-      <div id="empty-list" class="text-center text-muted py-5 hide">
-        ยังไม่มีรายการที่บันทึก
+      
+      <div id="empty-list" class="text-center text-muted py-5 hide">ยังไม่มีรายการที่บันทึก</div>
+
+      <div class="row mt-4">
+        <div class="col-12 d-flex justify-content-center">
+           <nav aria-label="Page navigation">
+             <ul class="pagination shadow-sm" id="pagination-controls"></ul>
+           </nav>
+        </div>
+        <div class="col-12 text-center text-muted small mt-2">
+           แสดง <span id="page-info-start">0</span> - <span id="page-info-end">0</span> จาก <span id="page-info-total">0</span> รายการ
+        </div>
       </div>
+
     </div>
 
   </section>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  
+   
   <script>
-    // --- Config ---
+    // --- Config (แก้ตรงนี้) ---
     const LIFF_ID = '2005615503-JXQ1zqO3'; // LIFF ID ของคุณ
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDrVrPPTbKHKTySkUHxwc2DclT8-tZvzRi8abRYyhDgT98YQTlpE9DsZ3jtNeg1xIO/exec';
 
-    // --- State ---
+    // --- State & Pagination ---
     let userProfile = null;
     let currentFlexId = null;
-    let itemTemplate = null; // Store template
+    let itemTemplate = null;
+    const ITEMS_PER_PAGE = 6; // จำนวนรายการต่อหน้า
+    let currentPage = 1;
 
     // --- Utils ---
     const toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: true
+      toast: true, position: 'top-end', showConfirmButton: false, timer: 2000, timerProgressBar: true
     });
 
     // --- Main Logic ---
     $(document).ready(function() {
         main();
-        
-        // Setup Template
         itemTemplate = $('.template-item').first().clone();
         
-        // Event Listeners
         $('#json').on('input', function() { renderPreview(); });
         $('#altText').on('input', function() { $('#text-count').text(`${this.value.length}/400`); });
         $('#login-btn').click(() => liff.login({ redirectUri: window.location.href }));
@@ -322,51 +263,49 @@
         $('#share-btn').click(() => {
             const jsonStr = $('#json').val();
             const altText = $('#altText').val();
-            if(isValidJson(jsonStr)) {
-                shareFlex(JSON.parse(jsonStr), altText);
-            } else {
-                Swal.fire('Error', 'JSON ไม่ถูกต้อง', 'error');
-            }
+            if(isValidJson(jsonStr)) shareFlex(JSON.parse(jsonStr), altText);
+            else Swal.fire('Error', 'JSON ไม่ถูกต้อง', 'error');
         });
         $('#send-chat-btn').click(sendInChat);
+
+        // --- Search Logic ---
         $('#search-input').on('keyup', function() {
-        var value = $(this).val().toLowerCase();
-        var hasResult = false;
-
-        // แสดง/ซ่อน ปุ่ม Clear ตามข้อความ
-        if (value.length > 0) {
-            $('#clear-search-btn').show();
-        } else {
-            $('#clear-search-btn').hide();
-        }
-
-        // วนลูปเช็ครายการทั้งหมด (ยกเว้นตัว Template ต้นแบบ)
-        $('#flexlist > div:not(.template-item)').filter(function() {
-            // ดึงชื่อจาก class .item-name มาเทียบ
-            var text = $(this).find('.item-name').text().toLowerCase();
-            var isMatch = text.indexOf(value) > -1;
+            let value = $(this).val().toLowerCase();
             
-            $(this).toggle(isMatch); // แสดงถ้าตรง ซ่อนถ้าไม่ตรง
-            
-            if (isMatch) hasResult = true;
+            if (value.length > 0) $('#clear-search-btn').show();
+            else $('#clear-search-btn').hide();
+
+            let totalFound = 0;
+            // วนลูปเช็คและใส่ class filtered-match ให้ตัวที่ตรง
+            $('#flexlist > div:not(.template-item)').each(function() {
+                let text = $(this).find('.item-name').text().toLowerCase();
+                if (text.indexOf(value) > -1) {
+                    $(this).addClass('filtered-match');
+                    totalFound++;
+                } else {
+                    $(this).removeClass('filtered-match');
+                }
+            });
+
+            // แจ้งเตือนไม่พบ
+            $('#no-search-result').remove();
+            if (totalFound === 0 && value.length > 0) {
+                 $('#flexlist').after(`
+                    <div id="no-search-result" class="text-center text-muted py-4">
+                        <i class="bi bi-search display-6 d-block mb-2 opacity-50"></i>
+                        ไม่พบรายการที่ค้นหา "${value}"
+                    </div>
+                `);
+            }
+
+            // รีเซ็ตไปหน้าแรกและวาด Pagination ใหม่
+            currentPage = 1;
+            renderPagination();
         });
 
-        // จัดการกรณีไม่พบข้อมูล
-        $('#no-search-result').remove(); // ลบข้อความแจ้งเตือนเก่าออกก่อน
-        if (!hasResult && value.length > 0) {
-            $('#flexlist').after(`
-                <div id="no-search-result" class="text-center text-muted py-4 animate__animated animate__fadeIn">
-                    <i class="bi bi-search display-6 d-block mb-2 opacity-50"></i>
-                    ไม่พบรายการที่ค้นหา "${$(this).val()}"
-                </div>
-            `);
-        }
-    });
-
-    // ปุ่มกดล้างคำค้นหา
-    $('#clear-search-btn').click(function() {
-        $('#search-input').val('').trigger('keyup').focus();
-    });
+        $('#clear-search-btn').click(function() {
+            $('#search-input').val('').trigger('keyup').focus();
+        });
     });
 
     async function main() {
@@ -402,81 +341,110 @@
     async function loadUserProfile() {
       const context = liff.getContext();
       if (context && context.type === 'square_chat') {
-        userProfile = { 
-            displayName: 'OpenChat Member', 
-            userId: context.squareMemberId, 
-            pictureUrl: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
-            isSquare: true 
-        };
+        userProfile = { displayName: 'OpenChat Member', userId: context.squareMemberId, pictureUrl: '', isSquare: true };
         $('#send-chat-btn').removeClass('hide');
       } else {
         userProfile = await liff.getProfile();
         if(liff.isInClient()) $('#send-chat-btn').removeClass('hide');
       }
-
       $('#displayName').text(userProfile.displayName);
       $('#display-img').attr('src', userProfile.pictureUrl || 'https://cdn-icons-png.flaticon.com/512/847/847969.png');
     }
 
-    // --- API Interactions ---
     function callApi(action, data = {}) {
-        const formData = {
-            q: action,
-            uid: userProfile.userId,
-            isSquare: userProfile.isSquare || false,
-            ...data
-        };
-        return $.post(SCRIPT_URL, formData);
+        return $.post(SCRIPT_URL, { q: action, uid: userProfile.userId, isSquare: userProfile.isSquare || false, ...data });
     }
 
     function fetchSavedList() {
       callApi('get').done(function(res) {
-          $('#flexlist').empty(); // Clear current list
+          $('#flexlist').empty(); 
           
           if (res.status === 200 && res.data.length > 0) {
             $('#empty-list').addClass('hide');
+            res.data.forEach(item => renderListItem(item));
             
-            res.data.forEach(item => {
-               renderListItem(item);
-            });
+            // *** Initial Pagination Setup ***
+            $('#flexlist > div:not(.template-item)').addClass('filtered-match');
+            renderPagination();
+
           } else {
             $('#empty-list').removeClass('hide');
+            // Clear pagination controls if empty
+            $('#pagination-controls').empty();
+            $('#page-info-total').text('0');
           }
-      }).fail(function() {
-          Swal.fire('Error', 'โหลดข้อมูลไม่สำเร็จ', 'error');
-      });
+      }).fail(() => Swal.fire('Error', 'โหลดข้อมูลไม่สำเร็จ', 'error'));
     }
 
     function renderListItem(item) {
         if (!itemTemplate) return;
-        
         let $clone = itemTemplate.clone();
         $clone.removeClass('hide template-item');
-        
         $clone.find('.item-name').text(item.name);
         
-        // --- FIX Z-INDEX ISSUE ---
-        // เพิ่ม Logic: เมื่อกดปุ่ม Dropdown ให้เพิ่ม Class high-z-index ที่ตัว Column หลัก
+        // Z-Index fix
         $clone.find('.dropdown').on('show.bs.dropdown', function () {
-            // หา .col-md-6 ที่เป็น parent แล้วใส่ class
             $(this).closest('.col-md-6, .col-lg-4').addClass('high-z-index');
         }).on('hide.bs.dropdown', function () {
-            // เมื่อปิดเมนู ให้เอา class ออก
             $(this).closest('.col-md-6, .col-lg-4').removeClass('high-z-index');
         });
 
-        // Bind Events
         $clone.find('.load-item').click(() => loadFlexToEditor(item));
         $clone.find('.share-item').click(() => shareFlex(JSON.parse(item.flex), item.name));
         $clone.find('.delete-item').click(function() { deleteFlex(item.flex_id, $clone); });
         $clone.find('.copy-link').click(() => {
-            const link = `https://liff.line.me/${LIFF_ID}?s=${item.flex_id}`;
-            navigator.clipboard.writeText(link).then(() => toast.fire('success', 'คัดลอกลิ้งค์แล้ว'));
+            navigator.clipboard.writeText(`https://liff.line.me/${LIFF_ID}?s=${item.flex_id}`).then(() => toast.fire('success', 'คัดลอกลิ้งค์แล้ว'));
         });
 
         $('#flexlist').append($clone);
     }
 
+    // --- Pagination Logic ---
+    function renderPagination() {
+        let $items = $('#flexlist > div:not(.template-item).filtered-match');
+        let totalItems = $items.length;
+        let totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+        if (currentPage > totalPages) currentPage = totalPages || 1;
+        if (currentPage < 1) currentPage = 1;
+
+        let startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        let endIndex = startIndex + ITEMS_PER_PAGE;
+
+        $('#flexlist > div:not(.template-item)').addClass('hide');
+        $items.slice(startIndex, endIndex).removeClass('hide');
+
+        $('#page-info-start').text(totalItems === 0 ? 0 : startIndex + 1);
+        $('#page-info-end').text(Math.min(endIndex, totalItems));
+        $('#page-info-total').text(totalItems);
+
+        createPaginationButtons(totalPages);
+    }
+
+    function createPaginationButtons(totalPages) {
+        let $nav = $('#pagination-controls');
+        $nav.empty();
+        if (totalPages <= 1) return;
+
+        let prevDisabled = currentPage === 1 ? 'disabled' : '';
+        $nav.append(`<li class="page-item ${prevDisabled}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;"><i class="bi bi-chevron-left"></i></a></li>`);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let active = i === currentPage ? 'active' : '';
+            $nav.append(`<li class="page-item ${active}"><a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a></li>`);
+        }
+
+        let nextDisabled = currentPage === totalPages ? 'disabled' : '';
+        $nav.append(`<li class="page-item ${nextDisabled}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;"><i class="bi bi-chevron-right"></i></a></li>`);
+    }
+
+    window.changePage = function(page) {
+        currentPage = page;
+        renderPagination();
+        document.getElementById('flexlist').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // --- Actions ---
     function handleSharedLink(id) {
         $.post(SCRIPT_URL, { q: 'getflex', id: id }).done(function(res) {
             if (res.status === 200 && res.flex) {
@@ -484,85 +452,52 @@
                 $('#json').val(JSON.stringify(JSON.parse(res.flex), null, 4));
                 $('#altText').val(res.altText || 'Flex Message');
                 renderPreview();
-                
-                Swal.fire({
-                    title: 'พร้อมแชร์',
-                    text: `โหลด Flex: ${res.altText} เรียบร้อย`,
-                    icon: 'success',
-                    confirmButtonText: 'แชร์เลย'
-                }).then((result) => {
-                    if(result.isConfirmed) {
-                          shareFlex(JSON.parse(res.flex), res.altText);
-                    } else {
-                          $('#input-sec').removeClass('hide');
-                          loadUserProfile();
-                    }
+                Swal.fire({ title: 'พร้อมแชร์', text: `โหลด Flex: ${res.altText} เรียบร้อย`, icon: 'success', confirmButtonText: 'แชร์เลย' })
+                .then((result) => {
+                    if(result.isConfirmed) shareFlex(JSON.parse(res.flex), res.altText);
+                    else { $('#input-sec').removeClass('hide'); loadUserProfile(); }
                 });
             } else {
-                Swal.fire('Error', 'ไม่พบข้อมูล Flex หรือลิ้งค์ผิดพลาด', 'error').then(() => liff.closeWindow());
+                Swal.fire('Error', 'ไม่พบข้อมูล Flex', 'error').then(() => liff.closeWindow());
             }
         });
     }
-
-    // --- Actions ---
 
     function loadFlexToEditor(item) {
         currentFlexId = item.flex_id;
         $('#altText').val(item.name);
         $('#json').val(JSON.stringify(JSON.parse(item.flex), null, 4));
         renderPreview();
-        
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        $('#save-btn').html('<i class="bi bi-pencil-square me-1"></i> อัพเดท');
-        $('#save-btn').removeClass('btn-primary').addClass('btn-warning');
+        $('#save-btn').html('<i class="bi bi-pencil-square me-1"></i> อัพเดท').removeClass('btn-primary').addClass('btn-warning');
     }
 
     function saveFlex() {
         const jsonStr = $('#json').val();
         const altText = $('#altText').val() || 'Flex Message';
-
         if (!isValidJson(jsonStr)) return Swal.fire('Error', 'JSON ไม่ถูกต้อง', 'error');
 
+        Swal.showLoading();
         if (currentFlexId) {
-             Swal.showLoading();
              callApi('update', { id: currentFlexId, flex: jsonStr, name: altText }).done(function(res) {
                  Swal.close();
                  if(res.status === 200) {
                      toast.fire('success', 'อัพเดทเรียบร้อย');
                      fetchSavedList();
                      resetEditorState();
-                 } else {
-                     Swal.fire('Error', res.error, 'error');
-                 }
+                 } else Swal.fire('Error', res.error, 'error');
              });
         } else {
-            Swal.fire({
-                title: 'ตั้งชื่อ Flex',
-                input: 'text',
-                inputValue: altText,
-                showCancelButton: true,
-                preConfirm: (name) => {
-                    if (!name) Swal.showValidationMessage('กรุณาตั้งชื่อ!');
-                    return name;
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
+            Swal.fire({ title: 'ตั้งชื่อ Flex', input: 'text', inputValue: altText, showCancelButton: true }).then((result) => {
+                if (result.isConfirmed && result.value) {
                     Swal.showLoading();
-                    callApi('put', { 
-                        name: result.value, 
-                        flex: jsonStr, 
-                        liff_id: liff.id 
-                    }).done(function(res) {
+                    callApi('put', { name: result.value, flex: jsonStr, liff_id: liff.id }).done(function(res) {
                         Swal.close();
                         if (res.result === 'success') {
                             toast.fire('success', 'บันทึกเรียบร้อย');
                             fetchSavedList();
-                        } else if (res.result === 'duplicate') {
-                            Swal.fire('Warning', 'ชื่อซ้ำ! กรุณาใช้ชื่ออื่น', 'warning');
-                        } else {
-                            Swal.fire('Error', res.message, 'error');
-                        }
+                        } else if (res.result === 'duplicate') Swal.fire('Warning', 'ชื่อซ้ำ!', 'warning');
+                        else Swal.fire('Error', res.message, 'error');
                     });
                 }
             });
@@ -570,114 +505,59 @@
     }
 
     function deleteFlex(id, $domElement) {
-        Swal.fire({
-            title: 'ยืนยันการลบ?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'ลบเลย'
-        }).then((result) => {
+        Swal.fire({ title: 'ยืนยันการลบ?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'ลบเลย' }).then((result) => {
             if (result.isConfirmed) {
                 Swal.showLoading();
                 callApi('delete', { id: id }).done(function(res) {
                     Swal.close();
                     if (res.result === 200) {
-                        $domElement.remove();
+                        $domElement.remove(); // ลบออกจาก DOM
                         toast.fire('success', 'ลบเรียบร้อย');
                         if(currentFlexId === id) resetEditorState();
-                    } else {
-                        Swal.fire('Error', 'ลบไม่สำเร็จ', 'error');
-                    }
+                        
+                        // *** Re-calculate Pagination ***
+                        renderPagination();
+                    } else Swal.fire('Error', 'ลบไม่สำเร็จ', 'error');
                 });
             }
         });
     }
 
     async function shareFlex(flexContent, altText) {
-        const message = {
-            type: 'flex',
-            altText: altText || 'Sent a Flex Message',
-            contents: flexContent
-        };
-
-        if (!liff.isApiAvailable('shareTargetPicker')) {
-            Swal.fire('Error', 'อุปกรณ์นี้ไม่รองรับการแชร์ (ShareTargetPicker)', 'error');
-            return;
-        }
-
+        const message = { type: 'flex', altText: altText || 'Sent a Flex Message', contents: flexContent };
+        if (!liff.isApiAvailable('shareTargetPicker')) return Swal.fire('Error', 'ไม่รองรับการแชร์', 'error');
         try {
             const res = await liff.shareTargetPicker([message]);
-            if (res) {
-                Swal.fire('Success', 'ส่งข้อความเรียบร้อย', 'success');
-            }
-        } catch (err) {
-            console.error(err);
-        }
+            if (res) Swal.fire('Success', 'ส่งข้อความเรียบร้อย', 'success');
+        } catch (err) { console.error(err); }
     }
     
     async function sendInChat() {
         const jsonStr = $('#json').val();
-        const altText = $('#altText').val() || 'Flex Message';
-        
         if (!isValidJson(jsonStr)) return Swal.fire('Error', 'JSON ไม่ถูกต้อง', 'error');
-        
-        const message = {
-            type: 'flex',
-            altText: altText,
-            contents: JSON.parse(jsonStr)
-        };
-        
         try {
-            await liff.sendMessages([message]);
-            Swal.fire('Success', 'ส่งในแชทเรียบร้อย', 'success').then(() => liff.closeWindow());
-        } catch (err) {
-            Swal.fire('Error', 'ส่งข้อความล้มเหลว: ' + err.message, 'error');
-        }
+            await liff.sendMessages([{ type: 'flex', altText: $('#altText').val() || 'Flex', contents: JSON.parse(jsonStr) }]);
+            Swal.fire('Success', 'ส่งเรียบร้อย', 'success').then(() => liff.closeWindow());
+        } catch (err) { Swal.fire('Error', err.message, 'error'); }
     }
 
-    // --- Helpers ---
     function renderPreview() {
-    const jsonStr = $('#json').val();
-    const $display = $('#flex-show');
-    if (!jsonStr.trim()) {
-        $display.html('<div class="text-white text-center mt-5 opacity-50"><i class="bi bi-chat-square-dots display-1"></i><p class="mt-2">ตัวอย่างจะปรากฏที่นี่</p></div>');
-        return;
-    }
-    try {
-        let json = JSON.parse(jsonStr);
-        // เพิ่มเติม: ห่อโครงสร้างให้ flex2html รองรับ
-        if (json.type === "bubble" || json.type === "carousel") {
-            json = {
-                type: "flex",
-                altText: "Preview",
-                contents: json
-            };
-        }
-        $display.empty();
-        if (typeof flex2html === 'function') {
-            flex2html('flex-show', json);
-        } else {
-            $display.html('<div class="alert alert-warning">Library flexhtml.js ไม่ถูกโหลด</div>');
-        }
-    } catch (e) {
-        $display.html('<div class="alert alert-danger mt-3">Invalid JSON</div>');
-    }
-}
-
-    function isValidJson(str) {
+        const jsonStr = $('#json').val();
+        if (!jsonStr.trim()) { $('#flex-show').html('...'); return; }
         try {
-            JSON.parse(str);
-            return true;
-        } catch (e) { return false; }
+            let json = JSON.parse(jsonStr);
+            if (json.type === "bubble" || json.type === "carousel") json = { type: "flex", altText: "Preview", contents: json };
+            $('#flex-show').empty();
+            if (typeof flex2html === 'function') flex2html('flex-show', json);
+        } catch (e) { $('#flex-show').html('<div class="alert alert-danger mt-3">Invalid JSON</div>'); }
     }
+
+    function isValidJson(str) { try { JSON.parse(str); return true; } catch (e) { return false; } }
 
     function resetEditorState() {
         currentFlexId = null;
-        $('#save-btn').html('<i class="bi bi-save me-1"></i> บันทึก');
-        $('#save-btn').removeClass('btn-warning').addClass('btn-primary');
-        $('#json').val('');
-        $('#altText').val('');
-        renderPreview();
+        $('#save-btn').html('<i class="bi bi-save me-1"></i> บันทึก').removeClass('btn-warning').addClass('btn-primary');
+        $('#json').val(''); $('#altText').val(''); renderPreview();
     }
   </script>
 </body>
